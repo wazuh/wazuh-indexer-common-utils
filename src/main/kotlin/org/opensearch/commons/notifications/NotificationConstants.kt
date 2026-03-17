@@ -68,5 +68,14 @@ object NotificationConstants {
     const val ALLOWED_CONFIG_TYPE_LIST_TAG = "allowed_config_type_list"
     const val PLUGIN_FEATURES_TAG = "plugin_features"
 
+    // Wazuh
+    const val TYPE_TAG = "type"
+    const val STATEFUL_TIMEOUT_TAG = "stateful_timeout"
+    const val EXECUTABLE_TAG = "executable"
+    const val EXTRA_ARGS_TAG = "extra_args"
+    const val LOCATION_TAG = "location"
+    const val AGENT_ID_TAG = "agent_id"
+
+
     const val DEFAULT_MAX_ITEMS = 1000
 }
