@@ -63,9 +63,6 @@ jobs:
         id: version
         run: echo "version=$(jq -r .version<VERSION.json)" >> "$GITHUB_OUTPUT"
 
-      - name: List generated files
-        run: ls -R build/distributions/
-
       - name: Build and Test
         run: ./gradlew build -Dversion=${{ steps.version.outputs.version }} -Drevision=${{ inputs.revision }}
 
