@@ -12,6 +12,8 @@
 name: "CodeQL"
 
 on:
+  push:
+    branches: [ "1-initialize-common-utils" ]
   schedule:
     - cron: "00 8 * * 5"
   workflow_dispatch:
