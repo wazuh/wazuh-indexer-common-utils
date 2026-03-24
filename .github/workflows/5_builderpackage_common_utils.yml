@@ -64,13 +64,20 @@ jobs:
         run: echo "version=$(jq -r .version<VERSION.json)" >> "$GITHUB_OUTPUT"
 
       - name: Build and Test
-        run: ./gradlew build -Dversion=${{ steps.version.outputs.version }} -Drevision=${{ inputs.revision }}
+        run: ./gradlew build "-Dversion=${{ steps.version.outputs.version }}" "-Drevision=${{ inputs.revision }}"
+        shell: bash
 
       - name: Create Artifact Path
-        # This ensures we find the ZIP no matter where Gradle put it
+        # This is the "Safety Net": It finds the ZIP regardless of the exact filename
         run: |
           mkdir -p build-artifacts
-          find . -name "*.zip" -exec cp {} build-artifacts/ \;
+          echo "Looking for artifacts for version ${{ steps.version.outputs.version }}..."
+            
+          # This finds any ZIP inside any build/distributions folder and copies it
+          find . -wholename "*/build/distributions/*.zip" -exec cp {} build-artifacts/ \;
+            
+          echo "Files found and ready to upload:"
+          ls -R build-artifacts/
         shell: bash
 
       - name: Upload artifact
