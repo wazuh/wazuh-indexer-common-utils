@@ -40,6 +40,8 @@ on:
 
 jobs:
   build:
+    env:
+      plugin_name: "wazuh-indexer-common-utils"
     strategy:
       matrix:
         java:
