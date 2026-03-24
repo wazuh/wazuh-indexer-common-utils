@@ -72,11 +72,17 @@ jobs:
         run: |
           mkdir -p build-artifacts
           echo "Looking for artifacts for version ${{ steps.version.outputs.version }}..."
-            
-          # This finds any ZIP inside any build/distributions folder and copies it
+          
+          # 2. DEBUG: List everything to see where Gradle actually puts the files
+          echo "Scanning for all ZIP files generated..."
+          find . -name "*.zip"
+          
+          # 3. COPY: Find any ZIP in any 'build/distributions' folder and move it to our staging area
+          # We use -exec cp to ensure that even if there are multiple, we get them.
           find . -wholename "*/build/distributions/*.zip" -exec cp {} build-artifacts/ \;
-            
-          echo "Files found and ready to upload:"
+          
+          # 4. VERIFY: Show what is inside build-artifacts before uploading
+          echo "Final content of build-artifacts:"
           ls -R build-artifacts/
         shell: bash
 
