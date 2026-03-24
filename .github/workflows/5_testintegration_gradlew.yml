@@ -1,4 +1,9 @@
-name: Test Integration Common Utils
+##
+# Copyright OpenSearch Contributors
+# SPDX-License-Identifier: Apache-2.0
+##
+
+name: Security Test and Build Common Utils
 
 on: [push, pull_request]
 
@@ -6,35 +11,30 @@ jobs:
   build-linux:
     strategy:
       matrix:
-        # Testing against Java 21 (current LTS) and Java 25 (future-proofing)
-        java: [ 21, 25 ]
-
+        java: [ 25 ]
+    # This job runs on Linux
     runs-on: ubuntu-latest
-    name: Build and test Common Utils (Java ${{ matrix.java }})
-
+    name: Build and test Common Utils with security-enabled
     steps:
-      # Step 1: Set up the Java environment using the Temurin distribution
+      # This step uses the setup-java Github action: https://github.com/actions/setup-java
       - name: Set Up JDK ${{ matrix.java }}
         uses: actions/setup-java@v5
         with:
-          distribution: 'temurin'
+          distribution: temurin # Temurin is a distribution of adoptium
           java-version: ${{ matrix.java }}
 
-      # Step 2: Check out the current branch from the repository
+      # This step uses the checkout Github action: https://github.com/actions/checkout
       - name: Checkout Branch
         uses: actions/checkout@v6
 
-      # Step 3: Run 'check' task which includes unit tests and code style validations (Spotless/Checkstyle)
-      - name: Run Tests
+      - name: Run integration tests
         run: |
-          ./gradlew check
+          ./gradlew integTest -Dsecurity=true -Dhttps=true --tests '*IT'
 
-      # Step 4: Upload test reports only if the previous step fails
       - name: Upload failed logs
         uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: logs-java-${{ matrix.java }}
+          name: logs
           overwrite: 'true'
-          # Standard Gradle path for HTML test reports
-          path: build/reports/tests/test/*
+          path: common_utils/build/testclusters/integTest-*/logs/*

@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   call-build-workflow:
-    uses: ./.github/workflows/5_builderpackage_reporting.yml
+    uses: ./.github/workflows/5_builderpackage_common_utils.yml
     secrets: inherit
     with:
       id: ${{ github.ref }}
