@@ -63,12 +63,15 @@ jobs:
         id: version
         run: echo "version=$(jq -r .version<VERSION.json)" >> "$GITHUB_OUTPUT"
 
+      - name: List generated files
+        run: ls -R build/distributions/
+
       - name: Build and Test
         run: ./gradlew build -Dversion=${{ steps.version.outputs.version }} -Drevision=${{ inputs.revision }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.plugin_name }}-${{ steps.version.outputs.version }}.${{ inputs.revision }}.zip
-          path: build/distributions/${{ env.plugin_name }}-${{ steps.version.outputs.version }}.${{ inputs.revision }}.zip
+          name: ${{ env.plugin_name }}-${{ steps.version.outputs.version }}-${{ matrix.os }}
+          path: build/distributions/${{ env.plugin_name }}-*.zip
           if-no-files-found: error
