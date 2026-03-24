@@ -12,8 +12,6 @@
 name: "CodeQL"
 
 on:
-  push:
-    branches: [ "1-initialize-common-utils" ]
   schedule:
     - cron: "00 8 * * 5"
   workflow_dispatch:
@@ -70,7 +68,6 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          cd notifications
           ./gradlew build -x test "-Dversion=${{ steps.version.outputs.version }}" "-Dbuild.revision=${{ inputs.revision }}"
 
       - name: Perform CodeQL Analysis
