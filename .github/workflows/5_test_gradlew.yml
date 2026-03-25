@@ -27,9 +27,9 @@ jobs:
       - name: Checkout Branch
         uses: actions/checkout@v6
 
-      - name: Run integration tests
+      - name: Run unit tests
         run: |
-          ./gradlew integTest -Dsecurity=true -Dhttps=true --tests '*IT'
+          ./gradlew test
 
       - name: Upload failed logs
         uses: actions/upload-artifact@v7
@@ -37,4 +37,4 @@ jobs:
         with:
           name: logs
           overwrite: 'true'
-          path: common_utils/build/testclusters/integTest-*/logs/*
+          path: build/test-results/test/
