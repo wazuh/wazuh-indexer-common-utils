@@ -38,6 +38,3 @@ Launch Intellij IDEA, choose **Import Project**, and select the `settings.gradle
 
 See [CONTRIBUTING](CONTRIBUTING.md).
 
-### Backport
-
-- [Link to backport documentation](https://github.com/opensearch-project/opensearch-plugins/blob/main/BACKPORT.md)

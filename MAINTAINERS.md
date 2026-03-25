@@ -24,6 +24,6 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 
 | Maintainer    | GitHub ID                                         | Affiliation |
 |---------------|---------------------------------------------------|-------------|
-| Annie Lee     | [leeyun-amzn](https://github.com/leeyun-amzn)     | Amazon      |
+| Annie Lee     | leeyun-amzn     | Amazon      |
 | Sriram Kosuri | [skkosuri-amzn](https://github.com/skkosuri-amzn) | Amazon      |
 | Mohammad Qureshi      | [qreshi](https://github.com/qreshi)       | Amazon      |
