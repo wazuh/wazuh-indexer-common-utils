@@ -72,19 +72,27 @@ jobs:
         run: |
           mkdir -p build-artifacts
           
-          echo "Scanning for distribution ZIPs..."
-          # Specifically look in build/distributions which is the Gradle standard
-          find . -type f -path "*/build/distributions/*.zip" -exec cp -v {} build-artifacts/ \;
+          echo "Step 1: Deep search for ANY generated artifacts..."
+          # This looks for any zip or jar files, excluding the gradle cache and hidden folders
+          find . -type f \( -name "*.zip" -o -name "*.jar" \) -not -path "*/.*" -not -path "./gradle/*" | grep "build/"
           
-          # Check if we actually found anything
+          echo "Step 2: Copying found artifacts to staging..."
+          # We look for files in any 'build' subdirectory that aren't intermediate 'classes' or 'tmp'
+          find . -type f \( -name "*.zip" -o -name "*.jar" \) -path "*/build/*" \
+            -not -path "*/build/classes/*" \
+            -not -path "*/build/tmp/*" \
+            -not -path "*/build/generated/*" \
+            -exec cp -v {} build-artifacts/ \;
+          
+          # Check if we finally got something
           if [ -z "$(ls -A build-artifacts)" ]; then
-             echo "::error::No ZIP files were found in any build/distributions directory!"
-             echo "Current directory structure for debugging:"
-             find . -maxdepth 4 -not -path '*/.*'
+             echo "::error::No ZIP or JAR files were found in any build directory!"
+             echo "Listing full directory structure for total visibility:"
+             find . -maxdepth 5 -not -path '*/.*'
              exit 1
           fi
           
-          echo "Artifacts ready for upload:"
+          echo "Final artifacts ready for upload:"
           ls -R build-artifacts/
         shell: bash
 
