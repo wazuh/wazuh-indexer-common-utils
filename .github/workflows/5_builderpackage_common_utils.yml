@@ -64,25 +64,27 @@ jobs:
         run: echo "version=$(jq -r .version<VERSION.json)" >> "$GITHUB_OUTPUT"
 
       - name: Build and Test
-        run: ./gradlew build "-Dversion=${{ steps.version.outputs.version }}" "-Drevision=${{ inputs.revision }}"
+        run: ./gradlew assemble "-Dversion=${{ steps.version.outputs.version }}" "-Drevision=${{ inputs.revision }}"
         shell: bash
 
       - name: Create Artifact Path
         # This is the "Safety Net": It finds the ZIP regardless of the exact filename
         run: |
           mkdir -p build-artifacts
-          echo "Looking for artifacts for version ${{ steps.version.outputs.version }}..."
           
-          # 2. DEBUG: List everything to see where Gradle actually puts the files
-          echo "Scanning for all ZIP files generated..."
-          find . -name "*.zip"
+          echo "Scanning for distribution ZIPs..."
+          # Specifically look in build/distributions which is the Gradle standard
+          find . -type f -path "*/build/distributions/*.zip" -exec cp -v {} build-artifacts/ \;
           
-          # 3. COPY: Find any ZIP in any 'build/distributions' folder and move it to our staging area
-          # We use -exec cp to ensure that even if there are multiple, we get them.
-          find . -wholename "*/build/distributions/*.zip" -exec cp {} build-artifacts/ \;
+          # Check if we actually found anything
+          if [ -z "$(ls -A build-artifacts)" ]; then
+             echo "::error::No ZIP files were found in any build/distributions directory!"
+             echo "Current directory structure for debugging:"
+             find . -maxdepth 4 -not -path '*/.*'
+             exit 1
+          fi
           
-          # 4. VERIFY: Show what is inside build-artifacts before uploading
-          echo "Final content of build-artifacts:"
+          echo "Artifacts ready for upload:"
           ls -R build-artifacts/
         shell: bash
 
