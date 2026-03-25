@@ -33,6 +33,14 @@ plugins {
     id 'com.diffplug.spotless' version '6.25.0'
 }
 
+task installLocalGitHook(type: Copy){
+    from new File(rootProject.rootDir, 'tools/pre-commit')
+    into { new File(rootProject.rootDir, '.git/hooks')}
+}
+
+// Install git pre-commit hook on the project.
+build.dependsOn installLocalGitHook
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -110,22 +118,6 @@ test {
         showStandardStreams = true
     }
 }
-
-spotless {
-    java {
-        removeUnusedImports()
-        importOrder 'java', 'javax', 'org', 'com'
-        licenseHeaderFile 'spotless.license.java'
-
-        eclipse().configFile rootProject.file('.eclipseformat.xml')
-    }
-}
-
-// TODO: enable detekt only when snakeyaml vulnerability is fixed
-/*detekt {
-    config = files("detekt.yml")
-    buildUponDefaultConfig = true
-}*/
 
 tasks.register('ktlint', JavaExec) {
     description = "Check Kotlin code style."

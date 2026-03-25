@@ -20,8 +20,8 @@ public class ConfigConstants {
     public static final String CONTENT_TYPE_DEFAULT = "application/json";
     public static final String AUTHORIZATION = "Authorization";
 
-    // These reside in security plugin.
-    public static final String OPENSEARCH_SECURITY_SSL_HTTP_PEMCERT_FILEPATH = "plugins.security.ssl.http.pemcert_filepath";
+    // These reside in security plugin.            1111
+        public static final String OPENSEARCH_SECURITY_SSL_HTTP_PEMCERT_FILEPATH = "plugins.security.ssl.http.pemcert_filepath";
     public static final String OPENSEARCH_SECURITY_SSL_HTTP_KEYSTORE_FILEPATH = "plugins.security.ssl.http.keystore_filepath";
     /**
      * @deprecated in favor of the {@link #OPENSEARCH_SECURITY_SSL_HTTP_KEYSTORE_PASSWORD_SETTING} secure setting
