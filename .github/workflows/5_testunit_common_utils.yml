@@ -1,8 +1,3 @@
-##
-# Copyright OpenSearch Contributors
-# SPDX-License-Identifier: Apache-2.0
-##
-
 name: Security Test and Build Common Utils
 
 on: [push, pull_request]
@@ -13,7 +8,7 @@ jobs:
       matrix:
         java: [ 25 ]
     # This job runs on Linux
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Build and test Common Utils with security-enabled
     steps:
       # This step uses the setup-java Github action: https://github.com/actions/setup-java
