@@ -1,44 +1,51 @@
-[![codecov](https://codecov.io/gh/opensearch-project/common-utils/branch/main/graph/badge.svg)](https://codecov.io/gh/opensearch-project/common-utils)
+<p align="center">
+    <img width="640px" src="https://wazuh.com/brand-assets/Wazuh-Logo.svg"/>
+</p>
 
-<img src="https://opensearch.org/assets/img/opensearch-logo-themed.svg" height="64px">
+[![Chat](https://img.shields.io/badge/chat-on%20forums-blue)](https://groups.google.com/forum/#!forum/wazuh)
+[![Slack](https://img.shields.io/badge/slack-join-blue.svg)](https://wazuh.com/community/join-us-on-slack)
+[![Documentation](https://img.shields.io/badge/documentation-reference-blue)](https://documentation.wazuh.com)
 
-- [OpenSearch Common Utils](#opensearch-common-utils)
+- [Wazuh Indexer Common Utils](#wazuh-indexer-common-utils)
+- [Project Resources](#project-resources)
 - [Contributing](#contributing)
-- [Getting Help](#getting-help)
-- [Code of Conduct](#code-of-conduct)
 - [Security](#security)
 - [License](#license)
 - [Copyright](#copyright)
 
-## OpenSearch Common Utils 
+## Wazuh Indexer Common Utils
 
-OpenSearch Common Utils is focused on providing reusable Java components for [OpenSearch](https://opensearch.org/) plugins.
+The **Wazuh Indexer Common Utils** is a foundational library focused on providing reusable Java components for Wazuh Indexer plugins.
 
-This library is composed of following parts:
+This repository is an open-source fork of the [OpenSearch common-utils](https://github.com/opensearch-project/common-utils) project, adapted to ensure seamless integration within the Wazuh ecosystem.
 
-1. `SecureRestClientBuilder` - provides methods to create secure low-level and high-level REST client. This is useful to make secure REST calls to OpenSearch or other plugin APIs. 
-2. `InjectSecurity` - provides methods to inject user or roles. This is useful for running background jobs securely.
-3. `IntegTestsWithSecurity` - provides methods to create users, roles for running integration tests with security plugin.
-4. Shared request/response/action classes used for plugin to plugin transport layer calls.
-5. Any common functionality across OpenSearch plugins could be moved to this.
+### Key Components
+
+This library is composed of the following parts:
+
+1. **`SecureRestClientBuilder`**: Provides methods to create secure low-level and high-level REST clients. Essential for making secure REST calls to Wazuh Indexer or other plugin APIs.
+2. **`InjectSecurity`**: Provides methods to inject users or roles, which is useful for running background jobs securely.
+3. **`IntegTestsWithSecurity`**: Provides methods to create users and roles for running integration tests with the security plugin.
+4. **Shared Transport Classes**: Shared request/response/action classes used for plugin-to-plugin transport layer calls.
+5. **Common Functionality**: Any common logic across Wazuh Indexer plugins is centralized here to reduce duplication.
+
+## Project Resources
+
+* [Project Website](https://wazuh.com)
+* [Documentation](https://documentation.wazuh.com)
+* Need help? Try [Slack](https://wazuh.com/community/join-us-on-slack)
 
 ## Contributing
 
-See [developer guide](DEVELOPER_GUIDE.md) and [how to contribute to this project](CONTRIBUTING.md). 
-
-## Getting Help
-
-If you find a bug, or have a feature request, please don't hesitate to open an issue in this repository.
-
-For more information, see [project website](https://opensearch.org/) and [documentation](https://docs-beta.opensearch.org/). If you need help and are unsure where to open an issue, try [forums](https://discuss.opendistrocommunity.dev/).
+See [CONTRIBUTING.md](./CONTRIBUTING.md) and join in. We welcome bug reports and feature requests through GitHub issues.
 
 ## Code of Conduct
 
-This project has adopted the [Amazon Open Source Code of Conduct](CODE_OF_CONDUCT.md). For more information see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq), or contact [opensource-codeofconduct@amazon.com](mailto:opensource-codeofconduct@amazon.com) with any additional questions or comments.
+This project has adopted the [Amazon Open Source Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Security
 
-If you discover a potential security issue in this project we ask that you notify AWS/Amazon Security via our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Please do **not** create a public GitHub issue.
+To report a possible vulnerability or security issue, please email us at **security@wazuh.com** or open a report under the Security tab. **PLEASE DO NOT OPEN A PUBLIC ISSUE.**
 
 ## License
 
@@ -46,4 +53,4 @@ This project is licensed under the [Apache v2.0 License](LICENSE.txt).
 
 ## Copyright
 
-Copyright OpenSearch Contributors. See [NOTICE](NOTICE.txt) for details.
+Copyright Wazuh, Inc. (Original code Copyright OpenSearch Contributors). See [NOTICE](NOTICE) for details.
