@@ -151,12 +151,12 @@ compileTestKotlin {
 }
 
 jar {
-    archiveExtension = 'zip'
+    archiveExtension = 'jar'
 }
 
 shadowJar {
     archiveClassifier = null
-    archiveExtension = 'zip'
+    archiveExtension = 'jar'
 }
 
 task sourcesJar(type: Jar) {
