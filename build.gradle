@@ -10,6 +10,8 @@ buildscript {
         isSnapshot = "true" == System.getProperty("build.snapshot", "true")
         buildVersionQualifier = System.getProperty("build.version_qualifier", "")
         kotlin_version = System.getProperty("kotlin.version", "2.2.20")
+        wazuh_version = System.getProperty("version", "5.0.0")
+        wazuh_revision = System.getProperty("revision", "0")
     }
 
     repositories {
@@ -50,13 +52,7 @@ repositories {
 
 allprojects {
     group = 'org.opensearch.commons'
-    version = opensearch_version.tokenize('-')[0] + '.0'
-    if (buildVersionQualifier) {
-        version += "-${buildVersionQualifier}"
-    }
-    if (isSnapshot) {
-        version += "-SNAPSHOT"
-    }
+    version = "${wazuh_version}.${wazuh_revision}"
 }
 
 java {
@@ -154,8 +150,13 @@ compileTestKotlin {
     }
 }
 
+jar {
+    archiveExtension = 'zip'
+}
+
 shadowJar {
     archiveClassifier = null
+    archiveExtension = 'zip'
 }
 
 task sourcesJar(type: Jar) {
