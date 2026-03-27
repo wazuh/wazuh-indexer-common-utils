@@ -1,6 +1,13 @@
 name: "Common Utils - Publish to Local Maven"
 description: "Publishes wazuh-indexer-common-utils artifacts to a local Maven repository."
 inputs:
+  version:
+    description: "The version of the artifact to publish."
+    required: true
+  revision:
+    description: "The revision of the artifact to publish."
+    required: false
+    default: "0"
   reference:
     description: "The reference branch or tag for the build."
     required: false
@@ -20,4 +27,4 @@ runs:
       uses: gradle/actions/setup-gradle@v6
     - id: publish-common-utils
       shell: bash
-      run: ./gradlew publishToMavenLocal -x check
+      run: ./gradlew publishToMavenLocal -x check -Dversion=${{ inputs.version }} -Drevision=${{ inputs.revision }}
