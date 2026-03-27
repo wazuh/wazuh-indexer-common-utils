@@ -4,6 +4,7 @@
  */
 package org.opensearch.commons.notifications.model.config
 
+import org.opensearch.commons.notifications.model.ActiveResponse
 import org.opensearch.commons.notifications.model.BaseConfigData
 import org.opensearch.commons.notifications.model.Chime
 import org.opensearch.commons.notifications.model.ConfigType
@@ -39,7 +40,8 @@ internal object ConfigDataProperties {
         Pair(ConfigType.EMAIL_GROUP, ConfigProperty(EmailGroup.reader, EmailGroup.xParser)),
         Pair(ConfigType.SMTP_ACCOUNT, ConfigProperty(SmtpAccount.reader, SmtpAccount.xParser)),
         Pair(ConfigType.MICROSOFT_TEAMS, ConfigProperty(MicrosoftTeams.reader, MicrosoftTeams.xParser)),
-        Pair(ConfigType.MATTERMOST, ConfigProperty(Slack.reader, Slack.xParser))
+        Pair(ConfigType.MATTERMOST, ConfigProperty(Slack.reader, Slack.xParser)),
+        Pair(ConfigType.ACTIVE_RESPONSE, ConfigProperty(ActiveResponse.reader, ActiveResponse.xParser))
     )
 
     /**
@@ -67,6 +69,7 @@ internal object ConfigDataProperties {
             ConfigType.SES_ACCOUNT -> configData is SesAccount
             ConfigType.MICROSOFT_TEAMS -> configData is MicrosoftTeams
             ConfigType.MATTERMOST -> configData is Slack
+            ConfigType.ACTIVE_RESPONSE -> configData is ActiveResponse
             ConfigType.NONE -> true
         }
     }
