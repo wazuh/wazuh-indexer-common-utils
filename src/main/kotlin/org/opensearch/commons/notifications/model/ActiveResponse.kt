@@ -42,7 +42,6 @@ data class ActiveResponse(
 ) : BaseConfigData {
 
     init {
-        // require(!Strings.isNullOrEmpty(name)) { "name is null or empty" }
         require(!Strings.isNullOrEmpty(type)) { "type is null or empty" }
         require(type in listOf("stateful", "stateless")) { "type must be stateful or stateless" }
         require(!Strings.isNullOrEmpty(executable)) { "executable is null or empty" }
@@ -84,7 +83,6 @@ data class ActiveResponse(
             var args: String? = null
             var location: String? = null
             var agentId: String? = null
-            // var name: String? = null
 
             XContentParserUtils.ensureExpectedToken(
                 XContentParser.Token.START_OBJECT,
