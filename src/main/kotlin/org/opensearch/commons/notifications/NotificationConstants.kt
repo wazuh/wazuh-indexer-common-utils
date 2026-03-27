@@ -76,6 +76,5 @@ object NotificationConstants {
     const val LOCATION_TAG = "location"
     const val AGENT_ID_TAG = "agent_id"
 
-
     const val DEFAULT_MAX_ITEMS = 1000
 }

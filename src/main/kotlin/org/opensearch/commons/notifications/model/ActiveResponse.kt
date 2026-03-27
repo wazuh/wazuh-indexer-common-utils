@@ -1,12 +1,23 @@
 /*
- * Copyright Wazuh Contributors
- * SPDX-License-Identifier: Apache-2.0
- */
+ * Copyright (C) 2026, Wazuh Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 package org.opensearch.commons.notifications.model
 
 import org.opensearch.commons.notifications.NotificationConstants
-import org.opensearch.commons.notifications.model.BaseConfigData
-import org.opensearch.commons.notifications.model.XParser
 import org.opensearch.commons.utils.logger
 import org.opensearch.core.common.Strings
 import org.opensearch.core.common.io.stream.StreamInput
@@ -22,13 +33,12 @@ import java.io.IOException
  * Data class representing ActiveResponse configuration.
  */
 data class ActiveResponse(
-    // val name: String,
     val type: String,
-    val stateful_timeout: Int? = null,
+    val statefulTimeout: Int? = null,
     val executable: String,
-    val extra_args: String,
+    val args: String,
     val location: String,
-    val agent_id: String? = null
+    val agentId: String? = null
 ) : BaseConfigData {
 
     init {
@@ -39,12 +49,12 @@ data class ActiveResponse(
         require(!Strings.isNullOrEmpty(location)) { "location is null or empty" }
         require(location in listOf("all", "local", "defined-agent")) { "location must be 'all', 'defined-agent', 'local'" }
         if (location == "defined-agent") {
-            require(!Strings.isNullOrEmpty(agent_id)) { "agent_id is required when location is defined-agent" }
-            require(agent_id!!.matches(Regex("^\\d+$"))) { "agent_id must contain only numeric characters" }
+            require(!Strings.isNullOrEmpty(agentId)) { "agent_id is required when location is defined-agent" }
+            require(agentId!!.matches(Regex("^\\d+$"))) { "agent_id must contain only numeric characters" }
         }
         if (type == "stateful") {
-            require(stateful_timeout != null) { "stateful_timeout is required for stateful type" }
-            require(stateful_timeout > 0) { "stateful_timeout must be greater than 0 for stateful type" }
+            require(statefulTimeout != null) { "stateful_timeout is required for stateful type" }
+            require(statefulTimeout > 0) { "stateful_timeout must be greater than 0 for stateful type" }
         }
     }
 
@@ -69,11 +79,11 @@ data class ActiveResponse(
         @Throws(IOException::class)
         fun parse(parser: XContentParser): ActiveResponse {
             var type: String? = null
-            var stateful_timeout: Int? = null
+            var statefulTimeout: Int? = null
             var executable: String? = null
-            var extra_args: String? = null
+            var args: String? = null
             var location: String? = null
-            var agent_id: String? = null
+            var agentId: String? = null
             // var name: String? = null
 
             XContentParserUtils.ensureExpectedToken(
@@ -85,25 +95,23 @@ data class ActiveResponse(
                 val fieldName = parser.currentName()
                 parser.nextToken()
                 when (fieldName) {
-                    // NotificationConstants.NAME_TAG -> name = parser.text()
                     NotificationConstants.TYPE_TAG -> type = parser.text()
-                    NotificationConstants.STATEFUL_TIMEOUT_TAG -> stateful_timeout = parser.intValue()
+                    NotificationConstants.STATEFUL_TIMEOUT_TAG -> statefulTimeout = parser.intValue()
                     NotificationConstants.EXECUTABLE_TAG -> executable = parser.text()
-                    NotificationConstants.EXTRA_ARGS_TAG -> extra_args = parser.text()
+                    NotificationConstants.EXTRA_ARGS_TAG -> args = parser.text()
                     NotificationConstants.LOCATION_TAG -> location = parser.text()
-                    NotificationConstants.AGENT_ID_TAG -> agent_id = parser.text()
+                    NotificationConstants.AGENT_ID_TAG -> agentId = parser.text()
                     else -> {
                         parser.skipChildren()
                         log.info("Unexpected field: $fieldName, while parsing ActiveResponse")
                     }
                 }
             }
-            // name ?: throw IllegalArgumentException("name field absent")
             type ?: throw IllegalArgumentException("type field absent")
             executable ?: throw IllegalArgumentException("executable field absent")
-            extra_args ?: throw IllegalArgumentException("extra_args field absent")
+            args ?: throw IllegalArgumentException("extra_args field absent")
             location ?: throw IllegalArgumentException("location field absent")
-            return ActiveResponse(/*name*/ type, stateful_timeout, executable, extra_args, location, agent_id)
+            return ActiveResponse(/*name*/ type, statefulTimeout, executable, args, location, agentId)
         }
     }
 
@@ -113,12 +121,11 @@ data class ActiveResponse(
      */
     constructor(input: StreamInput) : this(
         type = input.readString(),
-        stateful_timeout = input.readOptionalInt(),
+        statefulTimeout = input.readOptionalInt(),
         executable = input.readString(),
-        extra_args = input.readString(),
+        args = input.readString(),
         location = input.readString(),
-        agent_id = input.readOptionalString()
-        // name = input.readString()
+        agentId = input.readOptionalString()
     )
 
     /**
@@ -126,12 +133,11 @@ data class ActiveResponse(
      */
     override fun writeTo(output: StreamOutput) {
         output.writeString(type)
-        output.writeOptionalInt(stateful_timeout)
+        output.writeOptionalInt(statefulTimeout)
         output.writeString(executable)
-        output.writeString(extra_args)
+        output.writeString(args)
         output.writeString(location)
-        output.writeOptionalString(agent_id)
-        // output.writeString(name)
+        output.writeOptionalString(agentId)
     }
 
     /**
@@ -141,12 +147,15 @@ data class ActiveResponse(
         builder!!
         builder.startObject()
             .field(NotificationConstants.EXECUTABLE_TAG, executable)
-            .field(NotificationConstants.EXTRA_ARGS_TAG, extra_args)
+            .field(NotificationConstants.EXTRA_ARGS_TAG, args)
             .field(NotificationConstants.LOCATION_TAG, location)
             .field(NotificationConstants.TYPE_TAG, type)
-            // .field(NotificationConstants.NAME_TAG, name)
-        if (agent_id != null) builder.field(NotificationConstants.AGENT_ID_TAG, agent_id)
-        if (stateful_timeout != null) builder.field(NotificationConstants.STATEFUL_TIMEOUT_TAG, stateful_timeout)
+        if (agentId != null) {
+            builder.field(NotificationConstants.AGENT_ID_TAG, agentId)
+        }
+        if (statefulTimeout != null) {
+            builder.field(NotificationConstants.STATEFUL_TIMEOUT_TAG, statefulTimeout)
+        }
         return builder.endObject()
     }
 }
