@@ -84,7 +84,7 @@ jobs:
         run: |
           version=${{ env.VERSION }}
           stage=${{ env.STAGE }}
-          set_as_main=${{ inputs.set-as-main }}
+          set_as_main=${{ inputs.set_as_main }}
 
           # Check if version and stage are provided
           if [[ -n "$version" && -n "$stage" ]]; then
@@ -114,6 +114,7 @@ jobs:
           bash ${{ env.BUMP_SCRIPT_PATH }} ${{ steps.vars.outputs.version }} ${{ steps.vars.outputs.stage }}
 
       - name: Commit and push changes
+        id: commit_changes
         run: |
           git add .
           if git diff --cached --quiet; then
@@ -121,6 +122,7 @@ jobs:
            echo "has_changes=false" >> $GITHUB_OUTPUT
            exit 0
           fi
+          echo "has_changes=true" >> $GITHUB_OUTPUT
           git commit -m "feat: bump ${{ github.ref_name }}"
           git push origin ${{ steps.vars.outputs.branch_name }}
 
@@ -139,6 +141,7 @@ jobs:
           echo "pull_request_url=${PR_URL}" >> $GITHUB_OUTPUT
 
       - name: Merge pull request
+        if: steps.commit_changes.outputs.has_changes == 'true'
         run: |
           # Any checks for the PR are bypassed since the branch is expected to be functional (i.e. the bump process does not introduce any bugs)
           gh pr merge "${{ steps.create_pr.outputs.pull_request_url }}" --squash --admin
