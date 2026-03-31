@@ -84,7 +84,7 @@ jobs:
         run: |
           version=${{ env.VERSION }}
           stage=${{ env.STAGE }}
-          set-as-main=${{ inputs.set-as-main }}
+          set_as_main=${{ inputs.set-as-main }}
 
           # Check if version and stage are provided
           if [[ -n "$version" && -n "$stage" ]]; then
