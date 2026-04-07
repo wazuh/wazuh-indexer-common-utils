@@ -36,7 +36,7 @@ data class ActiveResponse(
     val type: String,
     val statefulTimeout: Int? = null,
     val executable: String,
-    val args: String,
+    val args: String? = null,
     val location: String,
     val agentId: String? = null
 ) : BaseConfigData {
@@ -107,7 +107,6 @@ data class ActiveResponse(
             }
             type ?: throw IllegalArgumentException("type field absent")
             executable ?: throw IllegalArgumentException("executable field absent")
-            args ?: throw IllegalArgumentException("extra_args field absent")
             location ?: throw IllegalArgumentException("location field absent")
             return ActiveResponse(/*name*/ type, statefulTimeout, executable, args, location, agentId)
         }
@@ -133,7 +132,7 @@ data class ActiveResponse(
         output.writeString(type)
         output.writeOptionalInt(statefulTimeout)
         output.writeString(executable)
-        output.writeString(args)
+        output.writeOptionalString(args)
         output.writeString(location)
         output.writeOptionalString(agentId)
     }
@@ -145,7 +144,6 @@ data class ActiveResponse(
         builder!!
         builder.startObject()
             .field(NotificationConstants.EXECUTABLE_TAG, executable)
-            .field(NotificationConstants.EXTRA_ARGS_TAG, args)
             .field(NotificationConstants.LOCATION_TAG, location)
             .field(NotificationConstants.TYPE_TAG, type)
         if (agentId != null) {
@@ -153,6 +151,9 @@ data class ActiveResponse(
         }
         if (statefulTimeout != null) {
             builder.field(NotificationConstants.STATEFUL_TIMEOUT_TAG, statefulTimeout)
+        }
+        if (args != null) {
+            builder.field(NotificationConstants.EXTRA_ARGS_TAG, args)
         }
         return builder.endObject()
     }
