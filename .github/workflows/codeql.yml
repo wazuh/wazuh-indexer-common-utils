@@ -68,7 +68,7 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew build -x test "-Dversion=${{ steps.version.outputs.version }}" "-Dbuild.revision=${{ inputs.revision }}"
+          ./gradlew build -x test "-Dversion=${{ steps.version.outputs.version }}" "-Dbuild.revision=${{ inputs.revision }}" "-Dorg.gradle.jvmargs=-Xmx1g" "-Dkotlin.daemon.jvmargs=-Xmx1g"
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
