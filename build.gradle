@@ -187,8 +187,8 @@ publishing {
     publications {
         shadow(MavenPublication) {
             project.shadow.component(it)
-            groupId = 'org.opensearch'
-            artifactId = 'common-utils'
+            groupId = 'com.wazuh'
+            artifactId = 'wazuh-indexer-common-utils'
 
             artifact sourcesJar
             artifact javadocJar
