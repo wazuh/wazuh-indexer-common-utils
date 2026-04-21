@@ -194,14 +194,14 @@ publishing {
             artifact javadocJar
 
             pom {
-                name = "OpenSearch Common Utils"
+                name = "Wazuh Indexer Common Utils"
                 packaging = "jar"
-                url = "https://github.com/opensearch-project/common-utils"
-                description = "OpenSearch Common Utils"
+                url = "https://github.com/wazuh/wazuh-indexer-common-utils"
+                description = "Wazuh Indexer Common Utils"
                 scm {
-                    connection = "scm:git@github.com:opensearch-project/common-utils.git"
-                    developerConnection = "scm:git@github.com:opensearch-project/common-utils.git"
-                    url = "git@github.com:opensearch-project/common-utils.git"
+                    connection = "scm:git@github.com:wazuh/wazuh-indexer-common-utils.git"
+                    developerConnection = "scm:git@github.com:wazuh/wazuh-indexer-common-utils.git"
+                    url = "git@github.com:wazuh/wazuh-indexer-common-utils.git"
                 }
                 licenses {
                     license {
@@ -211,9 +211,9 @@ publishing {
                 }
                 developers {
                     developer {
-                        id = "amazonwebservices"
-                        organization = "Amazon Web Services"
-                        organizationUrl = "https://aws.amazon.com"
+                        id = "wazuh"
+                        organization = "Wazuh"
+                        organizationUrl = "https://wazuh.com"
                     }
                 }
             }
