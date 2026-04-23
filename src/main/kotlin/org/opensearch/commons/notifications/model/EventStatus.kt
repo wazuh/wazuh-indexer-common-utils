@@ -44,6 +44,7 @@ data class EventStatus(
             ConfigType.EMAIL -> require(emailRecipientStatus.isNotEmpty())
             ConfigType.SNS -> requireNotNull(deliveryStatus)
             ConfigType.MICROSOFT_TEAMS -> requireNotNull(deliveryStatus)
+            ConfigType.ACTIVE_RESPONSE -> requireNotNull(deliveryStatus)
             ConfigType.NONE -> log.info("Some config field not recognized")
             else -> {
                 log.info("non-allowed config type for Status")

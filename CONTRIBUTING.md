@@ -1,51 +1,23 @@
-## Contributing to this Project
+# Contributing to Wazuh Indexer Plugins
+Depending on the plugin relationship with the Wazuh organization we currently recommend the following naming conventions and optional follow-up checks:
 
-OpenSearch is a community project that is built and maintained by people just like **you**. 
-[This document](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md) explains how you can contribute to this and related projects.
+### Official plugins
 
-## Developer Certificate of Origin
+For the **official plugins** that live within the Wazuh organization (i.e. they are included in [wazuh/wazuh-indexer-plugins/](https://github.com/wazuh/wazuh-indexer-plugins) or [wazuh/wazuh-indexer-reporting/](https://github.com/wazuh/wazuh-indexer-reporting) folder), and **which share the same release cycle as the Wazuh Indexer** itself:
 
-OpenSearch is an open source product released under the Apache 2.0 license (see either [the Apache site](https://www.apache.org/licenses/LICENSE-2.0) or the [LICENSE.txt file](LICENSE.txt)). The Apache 2.0 license allows you to freely use, modify, distribute, and sell your own products that include Apache 2.0 licensed software.
+- Do not include the word `plugin` in the repo name (e.g. [job-scheduler](https://github.com/opensearch-project/job-scheduler))
+- Use lowercase repo names
+- Use spinal case for repo names (e.g. [job-scheduler](https://github.com/opensearch-project/job-scheduler))
+- Do not include the word `Wazuh Indexer` or `Wazuh Dashboard` in the repo name
+- Provide a meaningful description, e.g. `A Wazuh Dashboard plugin to perform real-time and historical anomaly detection on Wazuh Indexer data`.
 
-We respect intellectual property rights of others and we want to make sure all incoming contributions are correctly attributed and licensed. A Developer Certificate of Origin (DCO) is a lightweight mechanism to do that.
+### Thirdparty plugins
 
-The DCO is a declaration attached to every contribution made by every developer. In the commit message of the contribution, the developer simply adds a `Signed-off-by` statement and thereby agrees to the DCO, which you can find below or at [DeveloperCertificate.org](http://developercertificate.org/).
+For the **3rd party plugins** that are maintained as independent projects in separate GitHub repositories **with their own release cycles** the recommended naming convention should follow the same rules as official plugins with some exceptions and few follow-up checks:
 
-```
-Developer's Certificate of Origin 1.1
-
-By making a contribution to this project, I certify that:
-
-(a) The contribution was created in whole or in part by me and I
-    have the right to submit it under the open source license
-    indicated in the file; or
-
-(b) The contribution is based upon previous work that, to the
-    best of my knowledge, is covered under an appropriate open
-    source license and I have the right under that license to
-    submit that work with modifications, whether created in whole
-    or in part by me, under the same open source license (unless
-    I am permitted to submit under a different license), as
-    Indicated in the file; or
-
-(c) The contribution was provided directly to me by some other
-    person who certified (a), (b) or (c) and I have not modified
-    it.
-
-(d) I understand and agree that this project and the contribution
-    are public and that a record of the contribution (including
-    all personal information I submit with it, including my
-    sign-off) is maintained indefinitely and may be redistributed
-    consistent with this project or the open source license(s)
-    involved.
- ```
-
-We require that every contribution to OpenSearch is signed with a Developer Certificate of Origin. Additionally, please use your real name. We do not accept anonymous contributors nor those utilizing pseudonyms.
-
-Each commit must include a DCO which looks like this
-
-```
-Signed-off-by: Jane Smith <jane.smith@email.com>
-```
-
-You may type this line on your own when writing your commit messages. However, if your user.name and user.email are set in your git configs, you can use `-s` or `– – signoff` to add the `Signed-off-by` line to the end of the commit message.
+- Inclusion of the words like `Wazuh Indexer` or `Wazuh Dashboard` (and in reasonable cases even `plugin`) are welcome because they can increase the chance of discoverability of the repository
+- Check the plugin versioning policy is documented and help users know which versions of the plugin are compatible and recommended for specific versions of OpenSearch
+- Review [CONTRIBUTING.md](CONTRIBUTING.md) document which is by default tailored to the needs of Amazon Web Services developer teams. You might want to update or further customize specific parts related to:
+    - **Code of Conduct** (if you do not already have CoC policy then there are several options to start with, such as [Contributor Covenant](https://www.contributor-covenant.org/)),
+    - **Security Policy** (you should let users know how they can safely report security vulnerabilities),
+    - Check if you need explicit part about **Trademarks and Attributions** (if you use any registered or non-registered trademarks we recommend following applicable "trademark-use" documents provided by respective trademark owners)

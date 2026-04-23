@@ -10,6 +10,8 @@ buildscript {
         isSnapshot = "true" == System.getProperty("build.snapshot", "true")
         buildVersionQualifier = System.getProperty("build.version_qualifier", "")
         kotlin_version = System.getProperty("kotlin.version", "2.2.20")
+        wazuh_version = System.getProperty("version", "5.0.0")
+        wazuh_revision = System.getProperty("revision", "0")
     }
 
     repositories {
@@ -33,6 +35,14 @@ plugins {
     id 'com.diffplug.spotless' version '6.25.0'
 }
 
+task installLocalGitHook(type: Copy){
+    from new File(rootProject.rootDir, 'tools/pre-commit')
+    into { new File(rootProject.rootDir, '.git/hooks')}
+}
+
+// Install git pre-commit hook on the project.
+build.dependsOn installLocalGitHook
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -42,13 +52,7 @@ repositories {
 
 allprojects {
     group = 'org.opensearch.commons'
-    version = opensearch_version.tokenize('-')[0] + '.0'
-    if (buildVersionQualifier) {
-        version += "-${buildVersionQualifier}"
-    }
-    if (isSnapshot) {
-        version += "-SNAPSHOT"
-    }
+    version = "${wazuh_version}.${wazuh_revision}"
 }
 
 java {
@@ -66,6 +70,7 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'org.jetbrains.kotlin.plugin.allopen'
 apply plugin: 'opensearch.repositories'
 apply from: 'build-tools/opensearchplugin-coverage.gradle'
+apply from: 'gradle/formatting.gradle'
 apply plugin: 'opensearch.java-agent'
 
 configurations {
@@ -111,22 +116,6 @@ test {
     }
 }
 
-spotless {
-    java {
-        removeUnusedImports()
-        importOrder 'java', 'javax', 'org', 'com'
-        licenseHeaderFile 'spotless.license.java'
-
-        eclipse().configFile rootProject.file('.eclipseformat.xml')
-    }
-}
-
-// TODO: enable detekt only when snakeyaml vulnerability is fixed
-/*detekt {
-    config = files("detekt.yml")
-    buildUponDefaultConfig = true
-}*/
-
 tasks.register('ktlint', JavaExec) {
     description = "Check Kotlin code style."
     mainClass = "com.pinterest.ktlint.Main"
@@ -161,8 +150,13 @@ compileTestKotlin {
     }
 }
 
+jar {
+    archiveExtension = 'jar'
+}
+
 shadowJar {
     archiveClassifier = null
+    archiveExtension = 'jar'
 }
 
 task sourcesJar(type: Jar) {
@@ -193,21 +187,21 @@ publishing {
     publications {
         shadow(MavenPublication) {
             from components.shadow
-            groupId = 'org.opensearch'
-            artifactId = 'common-utils'
+            groupId = 'com.wazuh'
+            artifactId = 'wazuh-indexer-common-utils'
 
             artifact sourcesJar
             artifact javadocJar
 
             pom {
-                name = "OpenSearch Common Utils"
+                name = "Wazuh Indexer Common Utils"
                 packaging = "jar"
-                url = "https://github.com/opensearch-project/common-utils"
-                description = "OpenSearch Common Utils"
+                url = "https://github.com/wazuh/wazuh-indexer-common-utils"
+                description = "Wazuh Indexer Common Utils"
                 scm {
-                    connection = "scm:git@github.com:opensearch-project/common-utils.git"
-                    developerConnection = "scm:git@github.com:opensearch-project/common-utils.git"
-                    url = "git@github.com:opensearch-project/common-utils.git"
+                    connection = "scm:git@github.com:wazuh/wazuh-indexer-common-utils.git"
+                    developerConnection = "scm:git@github.com:wazuh/wazuh-indexer-common-utils.git"
+                    url = "git@github.com:wazuh/wazuh-indexer-common-utils.git"
                 }
                 licenses {
                     license {
@@ -217,9 +211,9 @@ publishing {
                 }
                 developers {
                     developer {
-                        id = "amazonwebservices"
-                        organization = "Amazon Web Services"
-                        organizationUrl = "https://aws.amazon.com"
+                        id = "wazuh"
+                        organization = "Wazuh"
+                        organizationUrl = "https://wazuh.com"
                     }
                 }
             }

@@ -64,6 +64,11 @@ enum class ConfigType(val tag: String) {
         override fun toString(): String {
             return tag
         }
+    },
+    ACTIVE_RESPONSE("active_response") {
+        override fun toString(): String {
+            return tag
+        }
     };
 
     companion object {
