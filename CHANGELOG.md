@@ -28,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 - Fix codeql issues [(#17)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/17)
+- Fix bumper workflow merge step [(#27)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/27)
 
   
 
