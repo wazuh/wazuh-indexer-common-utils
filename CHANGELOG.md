@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - Add active response channel type [(#2)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/2)
+- Add Support Revert Bump Functionality [(#30)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/30)
 
 ### Dependencies
 
