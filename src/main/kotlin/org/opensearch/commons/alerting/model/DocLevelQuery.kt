@@ -161,6 +161,11 @@ data class DocLevelQuery(
         }
 
         private fun validateQueryTag(stringVal: String) {
+            // Skip validation for template placeholders (e.g., "{{ field.path }}")
+            // that will be resolved at finding enrichment time.
+            if (stringVal.contains("{{")) {
+                return
+            }
             for (inValidChar in INVALID_CHARACTERS) {
                 if (stringVal.contains(inValidChar)) {
                     throw IllegalArgumentException(
