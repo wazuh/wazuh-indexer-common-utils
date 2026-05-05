@@ -47,8 +47,8 @@ jobs:
         java:
           - 25
         os:
-          - ubuntu-24.04-arm # arm64-preview
-          - ubuntu-24.04 # x64
+          - ubuntu-26.04-arm # arm64-preview
+          - ubuntu-26.04 # x64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
