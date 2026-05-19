@@ -120,7 +120,7 @@ data class ActiveResponse(
         type = input.readString(),
         statefulTimeout = input.readOptionalInt(),
         executable = input.readString(),
-        args = input.readString(),
+        args = input.readOptionalString(),
         location = input.readString(),
         agentId = input.readOptionalString()
     )
