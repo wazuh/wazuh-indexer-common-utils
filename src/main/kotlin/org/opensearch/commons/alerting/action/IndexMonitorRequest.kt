@@ -51,7 +51,7 @@ class IndexMonitorRequest : ActionRequest {
     )
 
     override fun validate(): ActionRequestValidationException? {
-        if (isDocLevelMonitor() && hasDocLeveMonitorInput()) {
+        if (rejectsIndexPatterns() && hasDocLeveMonitorInput()) {
             val docLevelMonitorInput = monitor.inputs[0] as DocLevelMonitorInput
             if (docLevelMonitorInput.indices.stream().anyMatch { IndexPatternUtils.containsPatternSyntax(it) }) {
                 val actionValidationException = ActionRequestValidationException()
@@ -64,8 +64,11 @@ class IndexMonitorRequest : ActionRequest {
 
     private fun hasDocLeveMonitorInput() = monitor.inputs.isNotEmpty() && monitor.inputs[0] is DocLevelMonitorInput
 
-    private fun isDocLevelMonitor() =
-        monitor.monitorType.isNotBlank() && isMonitorOfStandardType(monitor.monitorType) && Monitor.MonitorType.valueOf(this.monitor.monitorType.uppercase(Locale.ROOT)) == Monitor.MonitorType.DOC_LEVEL_MONITOR
+    private fun rejectsIndexPatterns(): Boolean {
+        if (monitor.monitorType.isBlank() || !isMonitorOfStandardType(monitor.monitorType)) return false
+        val type = Monitor.MonitorType.valueOf(this.monitor.monitorType.uppercase(Locale.ROOT))
+        return type == Monitor.MonitorType.DOC_LEVEL_MONITOR || type == Monitor.MonitorType.ACTIVE_RESPONSE_MONITOR
+    }
 
     private fun isMonitorOfStandardType(monitorType: String): Boolean {
         val standardMonitorTypes = Monitor.MonitorType.values().map { it.value.uppercase(Locale.ROOT) }.toSet()

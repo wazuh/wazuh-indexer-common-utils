@@ -67,6 +67,8 @@ data class Monitor(
                     require(trigger is QueryLevelTrigger) { "Incompatible trigger [${trigger.id}] for monitor type [$monitorType]" }
                 MonitorType.DOC_LEVEL_MONITOR.value ->
                     require(trigger is DocumentLevelTrigger) { "Incompatible trigger [${trigger.id}] for monitor type [$monitorType]" }
+                MonitorType.ACTIVE_RESPONSE_MONITOR.value ->
+                    require(trigger is DocumentLevelTrigger) { "Incompatible trigger [${trigger.id}] for monitor type [$monitorType]" }
             }
         }
         if (enabled) {
@@ -130,7 +132,8 @@ data class Monitor(
         QUERY_LEVEL_MONITOR("query_level_monitor"),
         BUCKET_LEVEL_MONITOR("bucket_level_monitor"),
         CLUSTER_METRICS_MONITOR("cluster_metrics_monitor"),
-        DOC_LEVEL_MONITOR("doc_level_monitor");
+        DOC_LEVEL_MONITOR("doc_level_monitor"),
+        ACTIVE_RESPONSE_MONITOR("active_response_monitor");
 
         override fun toString(): String {
             return value
