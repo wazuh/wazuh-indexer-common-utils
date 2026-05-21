@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Add active response channel type [(#2)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/2)
 - Add Support Revert Bump Functionality [(#30)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/30)
+- Add dedicated monitor for Active Response [(#68)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/68)
 
 ### Dependencies
 
@@ -37,4 +38,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
   
 
-[Unreleased 5.0.x]: https://github.com/wazuh/wazuh-indexer-common-utils/compare/1669ec046c476b837125cdc69870556e8a3b7ed1...main
+[Unreleased 5.0.x]: https://github.com/wazuh/wazuh-indexer-common-utils/compare/fbaae1d440dadf8491fa68145a465b09c6dc118e...main
