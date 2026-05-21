@@ -38,4 +38,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
   
 
-[Unreleased 5.0.x]: https://github.com/wazuh/wazuh-indexer-common-utils/compare/1669ec046c476b837125cdc69870556e8a3b7ed1...main
+[Unreleased 5.0.x]: https://github.com/wazuh/wazuh-indexer-common-utils/compare/bc776103a4b9c0279884e367782ed6518b263697...main
