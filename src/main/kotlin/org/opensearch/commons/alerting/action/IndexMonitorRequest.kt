@@ -20,6 +20,8 @@ class IndexMonitorRequest : ActionRequest {
     val method: RestRequest.Method
     var monitor: Monitor
     val rbacRoles: List<String>?
+    /** When true the request originates from an internal plugin (e.g. SAP) and should bypass the max-monitors limit. */
+    val internalCaller: Boolean
 
     constructor(
         monitorId: String,
@@ -28,7 +30,8 @@ class IndexMonitorRequest : ActionRequest {
         refreshPolicy: WriteRequest.RefreshPolicy,
         method: RestRequest.Method,
         monitor: Monitor,
-        rbacRoles: List<String>? = null
+        rbacRoles: List<String>? = null,
+        internalCaller: Boolean = false
     ) : super() {
         this.monitorId = monitorId
         this.seqNo = seqNo
@@ -37,6 +40,7 @@ class IndexMonitorRequest : ActionRequest {
         this.method = method
         this.monitor = monitor
         this.rbacRoles = rbacRoles
+        this.internalCaller = internalCaller
     }
 
     @Throws(IOException::class)
@@ -47,7 +51,8 @@ class IndexMonitorRequest : ActionRequest {
         refreshPolicy = WriteRequest.RefreshPolicy.readFrom(sin),
         method = sin.readEnum(RestRequest.Method::class.java),
         monitor = Monitor.readFrom(sin) as Monitor,
-        rbacRoles = sin.readOptionalStringList()
+        rbacRoles = sin.readOptionalStringList(),
+        internalCaller = sin.readBoolean()
     )
 
     override fun validate(): ActionRequestValidationException? {
@@ -84,5 +89,6 @@ class IndexMonitorRequest : ActionRequest {
         out.writeEnum(method)
         monitor.writeTo(out)
         out.writeOptionalStringCollection(rbacRoles)
+        out.writeBoolean(internalCaller)
     }
 }
