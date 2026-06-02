@@ -20,6 +20,7 @@ class IndexMonitorRequest : ActionRequest {
     val method: RestRequest.Method
     var monitor: Monitor
     val rbacRoles: List<String>?
+
     /** When true the request originates from an internal plugin (e.g. SAP) and should bypass the max-monitors limit. */
     val internalCaller: Boolean
 
