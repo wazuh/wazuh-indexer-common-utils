@@ -4,9 +4,8 @@ name: (5.x) Build packages (on push)
 # - On push
 
 on:
-  push:
-    paths-ignore:
-      - "**/*.md"
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -14,6 +13,7 @@ concurrency:
 
 jobs:
   call-build-workflow:
+    if: ${{ !github.event.pull_request.draft }}
     uses: ./.github/workflows/5_builderpackage_common_utils.yml
     secrets: inherit
     with:
