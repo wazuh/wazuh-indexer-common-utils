@@ -38,7 +38,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 ## Prior versions
-
-This is the initial release of Wazuh Indexer 5.0, so there are no prior 5.x versions. Previous releases can be found under the 4.x branch.
+- []()
 
 [Unreleased 5.0.x]: https://github.com/wazuh/wazuh-indexer-common-utils/compare/fbaae1d440dadf8491fa68145a465b09c6dc118e...main
