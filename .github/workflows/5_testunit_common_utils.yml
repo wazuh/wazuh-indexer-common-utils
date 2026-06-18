@@ -11,7 +11,8 @@ jobs:
       matrix:
         java: [ 25 ]
     # This job runs on Linux
-    runs-on: ubuntu-24.04
+    runs-on:
+      - codebuild-github-actions-codebuild-runner-indexer-amd-${{ github.run_id }}-${{ github.run_attempt }}
     name: Build and test Common Utils with security-enabled
     steps:
       # This step uses the setup-java Github action: https://github.com/actions/setup-java

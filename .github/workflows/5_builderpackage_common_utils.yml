@@ -46,10 +46,11 @@ jobs:
       matrix:
         java:
           - 25
-        os:
-          - ubuntu-24.04-arm # arm64-preview
-          - ubuntu-24.04 # x64
-    runs-on: ${{ matrix.os }}
+        arch:
+          - amd # x64
+          - arm # arm64
+    runs-on:
+      - codebuild-github-actions-codebuild-runner-indexer-${{ matrix.arch }}-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v6
 
@@ -76,6 +77,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ env.plugin_name }}-${{ steps.version.outputs.version }}.${{ inputs.revision }}-${{ matrix.os }}
+          name: ${{ env.plugin_name }}-${{ steps.version.outputs.version }}.${{ inputs.revision }}-${{ matrix.arch }}
           path: build-artifacts
           if-no-files-found: error
