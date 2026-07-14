@@ -8,9 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add active response channel type [(#2)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/2)
-- Add Support Revert Bump Functionality [(#30)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/30)
-- Add dedicated monitor for Active Response [(#68)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/68)
+- Add active response channel type [(#2)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/2)
+- Add Support Revert Bump Functionality [(#24)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/24)
+- Add dedicated monitor for Active Response [(#8)](https://github.com/wazuh/wazuh-indexer-alerting/issues/8), [(#61)](https://github.com/wazuh/wazuh-indexer-alerting/issues/61)
 
 ### Dependencies
 
@@ -29,8 +29,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -
 
 ### Fixed
-- Fix codeql issues [(#17)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/17)
-- Fix bumper workflow merge step [(#27)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/27)
+- Fix codeql issues [(#16)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/16)
+- Fix bumper workflow merge step [(#23)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/23)
 
   
 
