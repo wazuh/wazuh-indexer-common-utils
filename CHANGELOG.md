@@ -2,9 +2,9 @@
 
 ### Added
 
-- Add active response channel type [(#2)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/2)
-- Add Support Revert Bump Functionality [(#30)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/30)
-- Add dedicated monitor for Active Response [(#68)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/68)
+- Define active response channel type [(#2)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/2)
+- Support Revert bump functionality in wazuh-indexer-common-utils [(#24)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/24)
+- Implement dedicated monitor for Active Response [(#8)](https://github.com/wazuh/wazuh-indexer-alerting/issues/8) [(#61)](https://github.com/wazuh/wazuh-indexer-alerting/issues/61)
 
 ### Changed
 
@@ -15,8 +15,8 @@
 -
 
 ### Fixed
-- Fix codeql issues [(#17)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/17)
-- Fix bumper workflow merge step [(#27)](https://github.com/wazuh/wazuh-indexer-common-utils/pull/27)
+- CodeQL failures [(#16)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/16)
+- `gh pr merge` called with empty URL in `5_bumper_repository.yml` [(#23)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/23)
 
 ## Prior versions
 - []()
