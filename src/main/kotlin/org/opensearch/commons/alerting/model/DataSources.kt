@@ -61,12 +61,26 @@ data class DataSources(
                 "Custom query index mappings are configurable only if a custom query index is configured too."
             }
             require(
-                queryIndexMappingsByType.size == 1 &&
-                    queryIndexMappingsByType.containsKey("text") &&
+                queryIndexMappingsByType.containsKey("text") &&
                     queryIndexMappingsByType.get("text")?.size == 1 &&
                     queryIndexMappingsByType.get("text")!!.containsKey("analyzer")
             ) {
-                "Custom query index mappings are currently configurable only for 'text' fields and mapping parameter can only be 'analyzer'"
+                "Custom query index mappings must include a 'text' field mapping whose only parameter is 'analyzer'"
+            }
+            // WCS string fields are mapped as 'keyword', so allow an optional 'keyword'
+            // mapping carrying a single 'normalizer' parameter.
+            require(
+                queryIndexMappingsByType.keys.all { it == "text" || it == "keyword" } &&
+                    (
+                        !queryIndexMappingsByType.containsKey("keyword") ||
+                            (
+                                queryIndexMappingsByType.get("keyword")?.size == 1 &&
+                                    queryIndexMappingsByType.get("keyword")!!.containsKey("normalizer")
+                                )
+                        )
+            ) {
+                "Custom query index mappings are configurable only for 'text' fields ('analyzer') " +
+                    "and optionally 'keyword' fields ('normalizer')"
             }
         }
     }
