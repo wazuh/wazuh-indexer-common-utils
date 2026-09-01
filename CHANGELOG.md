@@ -15,8 +15,7 @@
 -
 
 ### Fixed
-- CodeQL failures [(#16)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/16)
-- `gh pr merge` called with empty URL in `5_bumper_repository.yml` [(#23)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/23)
+- No finding generated for a matching detection rule (Intune non-compliant device) [(#285)](https://github.com/wazuh/wazuh-indexer-security-analytics/issues/285)
 
 ## Prior versions
 - []()
