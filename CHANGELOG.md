@@ -17,6 +17,7 @@
 ### Fixed
 - CodeQL failures [(#16)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/16)
 - `gh pr merge` called with empty URL in `5_bumper_repository.yml` [(#23)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/23)
+- Stop `AlertingException.wrap()` re-wrapping and re-logging the same failure once per layer of the unwinding call stack [(#1867)](https://github.com/wazuh/wazuh-indexer/issues/1867) [(#1788)](https://github.com/wazuh/wazuh-indexer/issues/1788)
 
 ## Prior versions
 - []()
