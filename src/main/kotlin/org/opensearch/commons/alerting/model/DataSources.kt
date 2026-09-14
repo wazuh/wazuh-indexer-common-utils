@@ -67,20 +67,16 @@ data class DataSources(
             ) {
                 "Custom query index mappings must include a 'text' field mapping whose only parameter is 'analyzer'"
             }
-            // WCS string fields are mapped as 'keyword', so allow an optional 'keyword'
-            // mapping carrying a single 'normalizer' parameter.
             require(
-                queryIndexMappingsByType.keys.all { it == "text" || it == "keyword" } &&
-                    (
-                        !queryIndexMappingsByType.containsKey("keyword") ||
-                            (
-                                queryIndexMappingsByType.get("keyword")?.size == 1 &&
-                                    queryIndexMappingsByType.get("keyword")!!.containsKey("normalizer")
-                                )
-                        )
+                queryIndexMappingsByType.all { (type, parameters) ->
+                    val allowedParameter = ALLOWED_QUERY_INDEX_MAPPING_PARAMETER_BY_TYPE[type]
+                    allowedParameter != null &&
+                        parameters.size == 1 &&
+                        parameters.containsKey(allowedParameter)
+                }
             ) {
-                "Custom query index mappings are configurable only for 'text' fields ('analyzer') " +
-                    "and optionally 'keyword' fields ('normalizer')"
+                "Custom query index mappings are configurable only for 'text' and 'match_only_text' " +
+                    "fields ('analyzer') and 'keyword' fields ('normalizer')"
             }
         }
     }
@@ -155,6 +151,26 @@ data class DataSources(
     }
 
     companion object {
+        /**
+         * The single mapping parameter each source field type may configure on its query index copy.
+         *
+         * A detector sends this map for every rule field, so a type missing from here is not a
+         * rejected option but a failed detector: the `init` block below runs on construction, on
+         * [parse] and on the [StreamInput] constructor, so an unlisted type makes creation return
+         * HTTP 500 and makes an already-persisted monitor unreadable.
+         *
+         * `keyword` and `match_only_text` were added as the Wazuh Common Schema moved its string
+         * fields onto those types; both chains exist to compare a compiled Sigma query against a
+         * whole field value. Security Analytics' `DetectorMonitorConfig.getRuleIndexMappingsByType()`
+         * is the caller, and the two have to be changed together.
+         */
+        @JvmStatic
+        val ALLOWED_QUERY_INDEX_MAPPING_PARAMETER_BY_TYPE = mapOf(
+            "text" to "analyzer",
+            "keyword" to "normalizer",
+            "match_only_text" to "analyzer"
+        )
+
         const val QUERY_INDEX_FIELD = "query_index"
         const val FINDINGS_INDEX_FIELD = "findings_index"
         const val FINDINGS_INDEX_PATTERN_FIELD = "findings_index_pattern"
