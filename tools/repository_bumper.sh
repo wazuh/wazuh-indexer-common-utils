@@ -223,7 +223,6 @@ function main() {
     old_version="$(current_version)"
 
     update_version_file "$arg_version" "$arg_stage"
-    update_build_gradle_version "$arg_version"
 
     if [[ "$arg_version" != "$old_version" ]]; then
         log "Version changed: $old_version -> $arg_version"
