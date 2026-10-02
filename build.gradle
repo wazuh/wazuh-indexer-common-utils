@@ -10,7 +10,8 @@ buildscript {
         isSnapshot = "true" == System.getProperty("build.snapshot", "true")
         buildVersionQualifier = System.getProperty("build.version_qualifier", "")
         kotlin_version = System.getProperty("kotlin.version", "2.2.20")
-        wazuh_version = System.getProperty("version", "5.0.0")
+        wazuh_version = System.getProperty("version") ?: new groovy.json.JsonSlurper()
+            .parse(new File(projectDir, "VERSION.json")).version
         wazuh_revision = System.getProperty("revision", "0")
     }
 
