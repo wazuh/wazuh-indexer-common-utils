@@ -2,23 +2,30 @@
 
 ### Added
 
-- Define active response channel type [(#2)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/2)
-- Support Revert bump functionality in wazuh-indexer-common-utils [(#24)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/24)
-- Implement dedicated monitor for Active Response [(#8)](https://github.com/wazuh/wazuh-indexer-alerting/issues/8) [(#61)](https://github.com/wazuh/wazuh-indexer-alerting/issues/61)
+| Issue | Comment |
+|-------|---------|
+| [#1](https://github.com/wazuh/wazuh-indexer-common-utils/issues/1) | Initialize `wazuh-indexer-common-utils` repository |
+| [#15](https://github.com/wazuh/wazuh-indexer-common-utils/issues/15) | Compatibility with OpenSearch 3.6.0 |
+| [#2](https://github.com/wazuh/wazuh-indexer-common-utils/issues/2) | Add the active response notification channel type |
+| [#8](https://github.com/wazuh/wazuh-indexer-alerting/issues/8) | Add a dedicated monitor type for active response |
+| [#1589](https://github.com/wazuh/wazuh-indexer/issues/1589) | Add an `internalCaller` flag to monitor index requests |
 
 ### Changed
 
--
+| Issue | Comment |
+|-------|---------|
+| [#285](https://github.com/wazuh/wazuh-indexer-security-analytics/issues/285) [#1529](https://github.com/wazuh/wazuh-indexer-plugins/issues/1529) | Allow `keyword` and `match_only_text` fields in custom query index mappings |
+| [#181](https://github.com/wazuh/wazuh-indexer-security-analytics/issues/181) | Allow `{{ field }}` placeholders in doc-level query tags |
 
 ### Removed
 
--
+| Issue | Comment |
+|-------|---------|
 
 ### Fixed
-- CodeQL failures [(#16)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/16)
-- `gh pr merge` called with empty URL in `5_bumper_repository.yml` [(#23)](https://github.com/wazuh/wazuh-indexer-common-utils/issues/23)
-- Stop `AlertingException.wrap()` re-wrapping and re-logging the same failure once per layer of the unwinding call stack [(#1867)](https://github.com/wazuh/wazuh-indexer/issues/1867) [(#1788)](https://github.com/wazuh/wazuh-indexer/issues/1788)
-- No finding generated for a matching detection rule (Intune non-compliant device) [(#285)](https://github.com/wazuh/wazuh-indexer-security-analytics/issues/285)
+
+| Issue | Comment |
+|-------|---------|
+| [#1867](https://github.com/wazuh/wazuh-indexer/issues/1867) | Fix `AlertingException.wrap()` logging the same failure once per call-stack layer and resetting its status to 500 |
 
 ## Prior versions
-- []()
